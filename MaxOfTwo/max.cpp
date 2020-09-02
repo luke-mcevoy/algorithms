@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     istringstream iss;
 
     if (argc != 3) {
-        cerr << "Usage: " << argv[1] << " <integer m> <integer n>" << endl;
+        cerr << "Usage: " << argv[0] << " <integer m> <integer n>" << endl;
         return 1;
     }
     iss.str(argv[1]);
@@ -35,7 +35,9 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-
+    cout << "m is " << m << endl;
+    cout << "n is " << n << endl;
+    cout << "max(" << m << ", " << n << ") is " << max(m, n) << endl;
     return 0;
 }
 
