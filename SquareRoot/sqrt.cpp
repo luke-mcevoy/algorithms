@@ -13,22 +13,61 @@
 using namespace std;
 
 double sqrt(double num, double epsilon) {
-	if (num < 0) return numeric_limits<double>::quiet_NaN();
+	if (num < 0) {
+		cout << numeric_limits<double>::quiet_NaN() << endl;
+		return 1;
+	}
 	if (num == 0 || num == 1) return num;
-	int last_guess;
-	int next_guess;
+
+	double last_guess = num;
+	double next_guess = (last_guess + num/last_guess) / 2;
+
+	cout << "Testing sqrt: last_guess " << last_guess << ", next_guess "<< next_guess << endl;
+	cout << "Testing abs: " << abs(last_guess-next_guess) << endl;
+	cout << "Testing epsilon: " << epsilon << endl;
+
 	while( abs(last_guess-next_guess) <= epsilon ) {
 		next_guess = (last_guess + num/last_guess) / 2;
 	}
+
 	return next_guess;
 }
 
 int main(int argc, char *argv[]) {
-	if (argc < 2) {
-		cerr << "Usage: " << argv[0] << " <toRoot> <epsilon>" << endl;
+	double value, epsilon;
+	istringstream iss;
+
+	if (argc < 2 || argc > 3) {
+		cerr << "Usage: " << argv[0] << " <value> [epsilon]" << endl;
+		return 1;
 	}
+
 	if (argc == 2) {
-		int epsilon = 1e-7;
+		iss.str(argv[1]);
+		if ( !(iss >> value) ) {
+			cerr << "Error: Value argument must be a double." << endl;
+			return 1;
+		}
+		iss.clear();
+		epsilon = 1e-7;
 	}
+
+	if (argc == 3) {
+		iss.str(argv[1]);
+		if ( !(iss >> value) ) {
+			cerr << "Error: Value argument must be a double." << endl;
+			return 1;
+		}
+		iss.clear();
+
+		iss.str(argv[2]);
+		if ( !(iss >> epsilon) ) {
+			cerr << "Error: Epsilon argument must be a positive double." << endl;
+			return 1;
+		}
+		iss.clear();
+	}
+
+	cout << sqrt(value, epsilon) << endl;
 	return 0;
 }
