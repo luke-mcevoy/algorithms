@@ -19,19 +19,12 @@ double sqrt(double num, double epsilon) {
 
 	double last_guess = num;
 	double next_guess = ( last_guess + num/last_guess) / 2;
-//	cout << setprecision(8) << next_guess;
-
-//	cout << "Testing sqrt: last_guess " << last_guess << ", next_guess "<< next_guess << endl;
-//	cout << "Testing abs: " << bool(abs(last_guess-next_guess) >= epsilon) << endl;
-//	cout << "Testing epsilon: " << epsilon << endl;
-
+	
 	while( abs(last_guess-next_guess) >= epsilon ) {
 		last_guess = next_guess;
 		next_guess = (last_guess + num/last_guess) / 2;
 	}
-
 	return next_guess;
-
 }
 
 int main(int argc, char *argv[]) {
