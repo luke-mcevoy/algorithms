@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <limits>
 #include <iostream>
+#include <unistd.h>
 
 using namespace std;
 
@@ -20,15 +21,16 @@ double sqrt(double num, double epsilon) {
 	if (num == 0 || num == 1) return num;
 
 	double last_guess = num;
-	double next_guess = ( (last_guess + num)/last_guess) / 2;
+	double next_guess = ( last_guess + num/last_guess) / 2;
 
 	cout << "Testing sqrt: last_guess " << last_guess << ", next_guess "<< next_guess << endl;
 	cout << "Testing abs: " << bool(abs(last_guess-next_guess)) << endl;
 	cout << "Testing epsilon: " << epsilon << endl;
 
 	while( abs(last_guess-next_guess) >= epsilon ) {
-		next_guess = ( (last_guess + num)/last_guess) / 2;
+		next_guess = ( last_guess + num/last_guess) / 2;
 		cout << "next_guess "<< next_guess << endl;
+		sleep(1);
 	}
 
 	return next_guess;
