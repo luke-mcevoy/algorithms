@@ -14,23 +14,20 @@
 using namespace std;
 
 double sqrt(double num, double epsilon) {
-	if (num < 0) {
-		cout << numeric_limits<double>::quiet_NaN() << endl;
-		return 1;
-	}
+
 	if (num == 0 || num == 1) return num;
 
 	double last_guess = num;
 	double next_guess = ( last_guess + num/last_guess) / 2;
+//	cout << setprecision(8) << next_guess;
 
-	cout << "Testing sqrt: last_guess " << last_guess << ", next_guess "<< next_guess << endl;
-	cout << "Testing abs: " << bool(abs(last_guess-next_guess)) << endl;
-	cout << "Testing epsilon: " << epsilon << endl;
+//	cout << "Testing sqrt: last_guess " << last_guess << ", next_guess "<< next_guess << endl;
+//	cout << "Testing abs: " << bool(abs(last_guess-next_guess) >= epsilon) << endl;
+//	cout << "Testing epsilon: " << epsilon << endl;
 
 	while( abs(last_guess-next_guess) >= epsilon ) {
-		next_guess = ( last_guess + num/last_guess) / 2;
-		cout << "next_guess "<< next_guess << endl;
-		sleep(1);
+		last_guess = next_guess;
+		next_guess = (last_guess + num/last_guess) / 2;
 	}
 
 	return next_guess;
@@ -72,6 +69,16 @@ int main(int argc, char *argv[]) {
 		iss.clear();
 	}
 
-	cout << sqrt(value, epsilon) << endl;
+	if (value < 0) {
+		cout << numeric_limits<double>::quiet_NaN() << endl;
+		return 1;
+	}
+
+	if (epsilon <= 0) {
+		cout << "Error: Epsilon argument must be a positive double." << endl;
+		return 1;
+	}
+
+	cout << fixed << setprecision(8) << sqrt(value, epsilon) << endl;
 	return 0;
 }
