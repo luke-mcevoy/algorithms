@@ -7,7 +7,6 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
-#include <string>
 
 using namespace std;
 
@@ -29,8 +28,8 @@ public:
 	}
 
 	void print_info() const {
-		cout << full_name() << ", GPA: " << gpa()
-				<< ", ID: " << id() << endl;
+		cout << endl << full_name() << ", GPA: " << fixed << setprecision(2) << gpa()
+				<< ", ID: " << id();
 	}
 
 private:
@@ -43,7 +42,7 @@ private:
 vector<Student> find_failing_students(const vector<Student> &students) {
 	vector<Student> failing_students;
 	for (const auto &student : students) {
-		if (student.gpa() < 1) {
+		if (student.gpa() < 1.0) {
 			failing_students.push_back(student);
 		}
 	}
@@ -80,32 +79,18 @@ int main() {
 		cin >> repeat;
 	} while (repeat == 'Y' || repeat == 'y');
 
-	cout << endl << "All students: " << endl;
+	cout << endl << "All students:";
 	print_students(students);
 
-	cout << endl << "Failing students:";
+	cout << endl << endl << "Failing students:";
 	vector<Student> failing_students = find_failing_students(students);
-
-	if (failing_students.size() == 0) {
-		cout << " None" << endl;
+	if (failing_students.empty()) {
+		cout << " None";
 	} else {
-		cout << endl;
-		for (auto it = failing_students.cbegin(); it != failing_students.cend(); ++it) {
-			it->print_info();
-		}
+		print_students(failing_students);
 	}
-	// TODO
-	// Print a space and the word 'None' on the same line if no students are failing.
-	// Otherwise, print each failign student on a seperate line.
 
 	return 0;
-
-
-
-
-
-
-
 
 }
 
