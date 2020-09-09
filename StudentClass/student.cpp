@@ -1,9 +1,11 @@
-/*
- * student.cpp
- *
- *  Created on: Sep 9, 2020
- *      Author: Luke McEvoy
- */
+/*******************************************************************************
+ * Name    : student.cpp
+ * Author  : Luke McEvoy
+ * Version : 1.0
+ * Date    : September 9, 2020
+ * Description : Utilizes classes & vectors to analyze students through cin.
+ * Pledge : I pledge my honor that I have abided by the Stevens Honor System.
+ ******************************************************************************/
 #include <iostream>
 #include <iomanip>
 #include <vector>
