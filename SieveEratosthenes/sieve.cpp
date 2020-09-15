@@ -77,7 +77,12 @@ void PrimesSieve::sieve() {
 int PrimesSieve::num_digits(int num) {
     // TODO: write code to determine how many digits are in an integer
     // Hint: No strings are needed. Keep dividing by 10.
-    return 0;
+    int digits_count = 1;
+    while(floor(num/10) != 0) {
+        digits_count++;
+        num = floor(num/10);
+    }
+    return digits_count;
 }
 
 int main() {
