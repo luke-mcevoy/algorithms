@@ -50,11 +50,28 @@ void PrimesSieve::display_primes() const {
 
 int PrimesSieve::count_num_primes() const {
     // TODO: write code to count the number of primes found
-    return 0;
+    int prime_count = 0;
+    for (int i = 0; i <= limit_; i++) {
+        if (is_prime_[i]) { prime_count++; }
+    }
+    return prime_count;
 }
 
 void PrimesSieve::sieve() {
     // TODO: write sieve algorithm
+    for (int i = 0; i <= limit_; i++) {
+        if (i < 2) { is_prime_[i] = true; } else { is_prime_[i] = false; }
+    }
+
+    for (int i = 0; i <= floor(sqrt(limit_)); i++) {
+        if (is_prime_[i]) {
+            for(int j = pow(i,2); j <= limit_; j++) { is_prime_[i] = false; }
+        }
+    }
+
+    int iterator_to_max = limit_;
+    while(!(is_prime_[iterator_to_max])) { iterator_to_max--; }
+    max_prime_ = iterator_to_max;
 }
 
 int PrimesSieve::num_digits(int num) {
