@@ -106,6 +106,9 @@ int main() {
         return 1;
     }
 
-    // TODO: write code that uses your class to produce the desired output.
+    PrimesSieve primes(limit);
+    cout << endl << "Number of primes found: " << primes.num_primes() << endl;
+    cout << "Primes up to " << limit_str << ":" << endl;
+    primes.display_primes();
     return 0;
 }
