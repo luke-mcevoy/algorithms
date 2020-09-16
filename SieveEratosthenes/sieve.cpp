@@ -60,18 +60,20 @@ int PrimesSieve::count_num_primes() const {
 void PrimesSieve::sieve() {
     // TODO: write sieve algorithm
     for (int i = 0; i <= limit_; i++) {
-        if (i < 2) { is_prime_[i] = true; } else { is_prime_[i] = false; }
+        if (i < 2) { is_prime_[i] = false; } else { is_prime_[i] = true; }
     }
 
-    for (int i = 0; i <= floor(sqrt(limit_)); i++) {
+    for (int i = 2; i <= floor(sqrt(limit_)); i++) {
         if (is_prime_[i]) {
-            for(int j = pow(i,2); j <= limit_; j++) { is_prime_[i] = false; }
+            for (int j = i*i ; j <= limit_; j+= i) { is_prime_[j] = false; }
         }
     }
 
     int iterator_to_max = limit_;
     while(!(is_prime_[iterator_to_max])) { iterator_to_max--; }
     max_prime_ = iterator_to_max;
+
+    num_primes_ = count_num_primes();
 }
 
 int PrimesSieve::num_digits(int num) {
