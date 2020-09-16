@@ -46,11 +46,35 @@ PrimesSieve::PrimesSieve(int limit) :
 void PrimesSieve::display_primes() const {
     // TODO: write code to display the primes in the format specified in the
     // requirements document.
-    for (int i = 2; i <= limit_; i++) {
-        if (is_prime_[i]) { 
-            cout << i;
-            if (i != max_prime_) {
-                cout << " ";
+
+    const int max_prime_width = num_digits(max_prime_), primes_per_row = 80 / (max_prime_width + 1);
+	int primes_on_current_line = 0;
+    bool output_over_char_limit = false;
+
+	if(limit_ > 99){
+		for(int i = 2; i <= limit_; i++){
+			if(is_prime_[i]){
+				if(primes_on_current_line == primes_per_row){
+					cout << endl << setw(max_prime_width) << i;
+					primes_on_current_line = 0;
+				} else {
+					if(output_over_char_limit){
+						cout << setw(max_prime_width + 1) << i;
+					} else {
+						cout << setw(max_prime_width) << i;
+						output_over_char_limit = true;
+					}
+				}
+				primes_on_current_line++;
+			}
+		}
+	} else {
+        for (int i = 2; i <= limit_; i++) {
+            if (is_prime_[i]) { 
+                cout << i;
+                if (i != max_prime_) {
+                    cout << " ";
+                }
             }
         }
     }
