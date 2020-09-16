@@ -1,9 +1,9 @@
 /*******************************************************************************
  * Name        : sieve.cpp
- * Author      :
- * Date        :
+ * Author      : Luke McEvoy
+ * Date        : September 15, 2020
  * Description : Sieve of Eratosthenes
- * Pledge      :
+ * Pledge      : I pledge my honor that I have abided by the Stevens Honor System.
  ******************************************************************************/
 #include <cmath>
 #include <iomanip>
@@ -46,6 +46,14 @@ PrimesSieve::PrimesSieve(int limit) :
 void PrimesSieve::display_primes() const {
     // TODO: write code to display the primes in the format specified in the
     // requirements document.
+    for (int i = 2; i <= limit_; i++) {
+        if (is_prime_[i]) { 
+            cout << i;
+            if (i != max_prime_) {
+                cout << " ";
+            }
+        }
+    }
 }
 
 int PrimesSieve::count_num_primes() const {
