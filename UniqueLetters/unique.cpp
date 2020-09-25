@@ -1,13 +1,13 @@
 /*******************************************************************************
  * Name        : unique.cpp
- * Author      : 
- * Date        : 
+ * Author      : Luke McEvoy
+ * Date        : September 23, 2020
  * Description : Determining uniqueness of chars with int as bit vector.
- * Pledge      :
+ * Pledge      : I pledge my honor I have abided by the Stevens Honor System.
  ******************************************************************************/
 #include <iostream>
 #include <cctype>
-
+#include <sstream>
 
 using namespace std;
 
@@ -18,9 +18,6 @@ bool is_all_lowercase(const string &s) {
     int z = 122;
     for (long unsigned int i = 0; i < s.length(); i++) {
         int i_ascii = (int)s[i];
-        // cout << "i_ascii: " << i_ascii << endl;
-        // cout << "(a <= i_ascii): " << a << ", " << i_ascii << ", bool: " << bool(a <= i_ascii) << endl;
-        // cout << "(i_ascii <= z): " << i_ascii << ", " << z << ", bool: " << bool(i_ascii <= z) << endl;
         if (!((a <= i_ascii) && (i_ascii <= z))) {
             return false;
         }
@@ -43,6 +40,17 @@ bool all_unique_letters(const string &s) {
     // You may use only a single int for storage and work with bitwise
     // and bitshifting operators.
     // No credit will be given for other solutions.
+    unsigned int bitwise_reference = 0;
+    int a_ascii = 'a';
+    int current_letter;
+
+    for(char i : s) {
+        current_letter = 1 << (i - a_ascii);
+        if ((int(bitwise_reference & current_letter)) == current_letter) {
+            return false;
+        }
+        bitwise_reference = bitwise_reference | current_letter;
+    }
     return true;
 }
 
@@ -58,28 +66,33 @@ int main(int argc, char * const argv[]) {
     // TODO: reads and parses command line arguments.
     // Calls other functions to produce correct output.
 
-    if (argc == 1) { 
+    string s;
+    istringstream iss;
+
+    if (argc != 2) { 
         usage_error_message();
         return 1;
     }
 
-    if (argc > 2) { 
-        usage_error_message();
-        return 1;
-    }
+    iss.str(argv[1]);
+    (iss >> s);
 
-    // if (!all_unique_letters) {
-    //     input_error_message();
-    // }
-
-    if (!is_all_char(argv[1])) {
+    if(!(is_all_lowercase(s))) {
         input_error_message();
         return 1;
     }
 
-    cout << is_all_lowercase(argv[1]) << endl;
+    if (!is_all_char(s)) {
+        input_error_message();
+        return 1;
+    }
 
-    return 0;
+    if (all_unique_letters(s)) {
+        cout << "All letters are unique." << endl;
+        return 0;
+    }
 
+    cout << "Duplicate letters found." << endl;
+    return 1;
 
 }
