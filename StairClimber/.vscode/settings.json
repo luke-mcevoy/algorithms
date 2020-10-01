@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.dart": "dart",
+        "sstream": "cpp",
+        "vector": "cpp",
+        "iterator": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "cmath": "cpp"
+    }
+}
